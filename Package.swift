@@ -208,17 +208,53 @@ let package = Package(
             ]
         ),
 
-        // macOS App
-        .executableTarget(
-            name: "TrumannApp",
+        // Shared UI Framework
+        .target(
+            name: "TrumannUI",
             dependencies: [
                 "Core",
                 "Ingestion",
                 "Ranking",
                 "Generation",
                 "Tracking",
-                "Adapters"
+                "Adapters",
+                "ResumeParser",
+                "SemanticMatcher",
+                "InterviewCoach",
+                "AutomationEngine",
+                "AnalyticsCore",
+                "SyncManager",
+                "EnterpriseCore",
+                "MonetizationCore"
             ]
+        ),
+
+        // iOS App
+        .executableTarget(
+            name: "TrumannApp-iOS",
+            dependencies: ["TrumannUI"],
+            path: "Sources/TrumannApp-iOS"
+        ),
+
+        // macOS App
+        .executableTarget(
+            name: "TrumannApp-macOS",
+            dependencies: ["TrumannUI"],
+            path: "Sources/TrumannApp-macOS"
+        ),
+
+        // watchOS App
+        .executableTarget(
+            name: "TrumannApp-watchOS",
+            dependencies: ["TrumannUI"],
+            path: "Sources/TrumannApp-watchOS"
+        ),
+
+        // tvOS App
+        .executableTarget(
+            name: "TrumannApp-tvOS",
+            dependencies: ["TrumannUI"],
+            path: "Sources/TrumannApp-tvOS"
         ),
 
         // Tests

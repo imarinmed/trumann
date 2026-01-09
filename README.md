@@ -37,17 +37,50 @@ Trumann is a comprehensive career management platform that revolutionizes the jo
 Built with modern Swift using functional programming principles:
 
 ```
-├── Core/           # Domain models, dependencies, privacy services
-├── ResumeParser/   # AI-powered resume analysis and optimization
-├── SemanticMatcher/# Intelligent job matching with company research
-├── InterviewCoach/ # AI mock interviews and coaching
-├── AutomationEngine/# Workflow automation and scheduling
-├── AnalyticsCore/  # Career metrics and insights
-├── SyncManager/    # Cross-platform data synchronization
-├── EnterpriseCore/ # Team collaboration and compliance
-├── MonetizationCore/# Premium features and billing
-└── Adapters/       # External API integrations
+├── Core/              # Domain models, dependencies, privacy services
+├── ResumeParser/      # AI-powered resume analysis and optimization
+├── SemanticMatcher/   # Intelligent job matching with company research
+├── InterviewCoach/    # AI mock interviews and coaching
+├── AutomationEngine/  # Workflow automation and scheduling
+├── AnalyticsCore/     # Career metrics and insights
+├── SyncManager/       # Cross-platform data synchronization
+├── EnterpriseCore/    # Team collaboration and compliance
+├── MonetizationCore/  # Premium features and billing
+├── Adapters/          # External API integrations
+├── TrumannUI/         # Shared multi-platform UI components
+├── TrumannApp-iOS/    # iOS app with Liquid Glass design
+├── TrumannApp-macOS/  # macOS app with Swift Glass interface
+├── TrumannApp-watchOS/# watchOS app with complications
+└── TrumannApp-tvOS/   # tvOS app with Siri remote support
 ```
+
+## 🎨 Multi-Platform Design
+
+Trumann provides a unified experience across all Apple platforms:
+
+### macOS - Swift Glass Desktop Experience
+- **Window Management**: Custom split-view navigation with collapsible sidebar
+- **Swift Glass Design**: Translucent backgrounds with depth and vitality
+- **Advanced Interactions**: Context menus, keyboard shortcuts, drag-and-drop
+- **System Integration**: Notification Center, Spotlight, Share extensions
+
+### iOS - Liquid Interface Mobile Experience
+- **Liquid Glass Design**: Fluid animations and glass-like materials
+- **Gesture Navigation**: Swipe gestures, haptic feedback, dynamic interactions
+- **iOS-Specific Features**: Live Activities, widgets, App Intents
+- **Performance Optimized**: Efficient scrolling, lazy loading, background processing
+
+### watchOS - Contextual Notifications & Complications
+- **Complications**: Watch face displays showing job counts and deadlines
+- **Smart Notifications**: Context-aware alerts for job events and deadlines
+- **Quick Actions**: Apply to jobs, view details directly from wrist
+- **Health Integration**: Stress tracking during interview preparation
+
+### tvOS - Siri Remote & Voice Navigation
+- **Siri Remote Support**: Click wheel navigation, swipe gestures
+- **Voice Control**: Siri integration for hands-free job search
+- **Focus Engine**: tvOS focus system for seamless navigation
+- **Large Screen Optimization**: Optimized layouts for 4K displays
 
 ## 🔒 Privacy & Security
 

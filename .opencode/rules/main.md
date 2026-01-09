@@ -80,6 +80,20 @@
 - **Iterative Refinement**: Use AI feedback loops to improve prompts and outputs
 - **Ethical AI**: Consider bias, privacy, and transparency in AI implementations
 
+### 7. Multi-Platform UI Development
+- **Shared Framework**: Create platform-agnostic UI components with conditional compilation
+- **Platform-Specific Adaptations**: Optimize layouts and interactions for each platform's capabilities
+- **Liquid Glass Design**: Implement Apple's new design system with vitality and content focus
+- **Unified Navigation**: Consistent information architecture across platforms
+- **Performance Optimization**: Platform-specific performance considerations (battery, memory, responsiveness)
+- **Accessibility First**: Ensure all platforms meet accessibility standards
+- **Haptic & Sensory Feedback**: Leverage platform-specific feedback mechanisms
+- **Swift Glass macOS**: Translucent interfaces with depth, custom window management, system integration
+- **watchOS Complications**: Rich complications for glanceable job data, contextual notifications
+- **tvOS Siri Integration**: Voice control, focus engine optimization, remote navigation
+- **Cross-Platform Sync**: Unified data model with platform-specific adaptations
+- **Design System Consistency**: Shared color schemes, typography, spacing across platforms
+
 ## Specialized Agent Rules
 
 ## 🤖 **Oracle Agent**
