@@ -1,0 +1,67 @@
+# SwiftLint Configuration for Trumann - Functional-First Swift 6
+# Enforces warnings-as-errors, functional purity, and iOS 18/macOS 15 compatibility
+
+included:
+  - Sources
+  - Tests
+
+excluded:
+  - .build
+
+# Opt-in rules for functional purity and safety
+opt_in_rules:
+  - closure_body_length
+  - explicit_init
+  - fatal_error_message
+  - implicit_return
+  - override_in_extension
+  - redundant_nil_coalescing
+  - strict_fileprivate
+  - trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - vertical_whitespace_closing_braces
+
+# Disable rules conflicting with functional style
+disabled_rules:
+  - force_unwrapping
+  - identifier_name
+  - todo
+  - unused_optional_binding  # Common in functional chains
+
+# Custom rules for functional programming
+custom_rules:
+  avoid_force_unwrap:
+    name: "Avoid Force Unwrapping"
+    regex: '\\!($|\\! )'
+    match_kinds:
+      - postfix
+    severity: error
+    message: "Use explicit nil checking or map/flatMap instead"
+
+  prefer_map_over_for_loop:
+    name: "Prefer Higher-Order Functions"
+    regex: '\\bfor\\s+.*\\b(in)\\s+.*\\{'
+    excluded: 'Tests/.*'
+    severity: warning
+    message: "Consider using map/filter/reduce instead of for-in"
+
+# Functional-style configurations
+large_tuple: 3
+function_body_length:
+  warning: 50
+  error: 100
+cyclomatic_complexity:
+  warning: 10
+  error: 20
+
+# Line length for functional chains
+line_length:
+  warning: 150
+  error: 200
+  ignores_function_declarations: true
+  ignores_comments: true
+
+# Analyzer rules for safety
+analyzer_rules:
+  - unused_declaration
+  - unused_import

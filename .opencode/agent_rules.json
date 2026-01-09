@@ -1,0 +1,142 @@
+{
+  "agents": {
+    "default": {
+      "workflow": "ultrawork",
+      "parallel_search": true,
+      "verification": "strict",
+      "evidence_required": true,
+      "no_partial_completion": true,
+      "autonomous_execution": true,
+      "premium_ux_quality": true
+    },
+    "code_analysis": {
+      "tools": ["explore", "librarian", "grep", "ast_grep", "lsp"],
+      "parallel_execution": "maximum",
+      "search_strategy": "exhaustive",
+      "context_gathering": "pre_deep_analysis",
+      "no_stop_at_first_result": true
+    },
+    "implementation": {
+      "pre_implementation_checks": [
+        "codebase_assessment",
+        "pattern_consistency",
+        "user_intent_validation"
+      ],
+      "post_implementation": [
+        "lsp_diagnostics_clean",
+        "build_success",
+        "test_pass",
+        "evidence_verification"
+      ],
+      "error_handling": {
+        "failure_recovery": "consult_oracle_after_3_attempts",
+        "no_shotgun_debugging": true,
+        "revert_on_persistent_failure": true
+      }
+    },
+    "documentation": {
+      "standards": {
+        "docc_required": true,
+        "symbol_documentation": "comprehensive",
+        "module_overviews": "mandatory"
+      },
+      "triggers": ["new_module", "public_api_change", "architecture_decision"]
+    },
+    "privacy_security": {
+      "privacy_manifest": "strict_compliance",
+      "encryption": "crypto_kit_required",
+      "keychain_usage": "mandatory_for_secrets",
+      "att_consent": "gated_implementation",
+      "redaction": "automatic_and_verified"
+    },
+    "quality_gates": {
+      "linting": "swiftlint_strict",
+      "formatting": "swift_format_enforced",
+      "testing": "unit_integration_contract",
+      "coverage": "80_percent_minimum",
+      "warnings": "treat_as_errors"
+    }
+  },
+  "workflows": {
+    "ultrawork": {
+      "principles": [
+        "parallel_maximization",
+        "strict_verification",
+        "evidence_based",
+        "autonomous_until_completion",
+        "premium_quality_focus",
+        "functional_first_design",
+        "strong_typing_emphasis",
+        "modern_swift_utilization",
+        "comprehensive_documentation",
+        "ai_powered_features"
+      ]
+    }
+  },
+    "ultrawork": {
+      "description": "Maximum precision with exhaustive parallel execution",
+      "principles": [
+        "parallel_maximization",
+        "strict_verification",
+        "evidence_based",
+        "autonomous_until_completion",
+        "premium_quality_focus"
+      ]
+    },
+    "fix_problems": {
+      "description": "Systematically identify and resolve the largest issues",
+      "steps": [
+        "codebase_analysis",
+        "problem_identification",
+        "prioritization",
+        "sequential_fixing",
+        "verification"
+      ]
+    }
+  },
+    "rules": {
+      "never_commit_without_request": true,
+      "never_type_suppress": true,
+      "never_leave_broken_code": true,
+      "never_partial_completion": true,
+      "always_parallel_search": true,
+      "always_verify_with_evidence": true,
+      "always_consult_oracle_for_complex": true,
+      "always_use_todos_for_multi_step": true,
+      "always_check_codebase_patterns": true,
+      "always_redact_sensitive_data": true,
+      "always_document_public_apis": true,
+      "always_maintain_docc_bundles": true,
+      "never_merge_without_updated_docs": true,
+      "prefer_functional_programming": true,
+      "use_strong_well_defined_types": true,
+      "leverage_latest_swift_features": true,
+      "strive_for_eloquent_code": true,
+      "implement_comprehensive_ai_features": true,
+      "maintain_high_test_coverage": true,
+      "design_with_privacy_by_default": true
+    },
+    "documentation": {
+      "standards": {
+        "docc_required": true,
+        "public_api_fully_documented": true,
+        "complex_functions_explained": true,
+        "module_overviews_mandatory": true,
+        "inline_comments_minimal": true,
+        "code_self_documenting": true
+      },
+      "maintenance": {
+        "update_on_api_changes": true,
+        "review_before_merge": true,
+        "automated_checks": true
+      }
+    },
+    "communication": {
+      "style": "concise_direct",
+      "no_acknowledgments": true,
+      "no_status_updates": true,
+      "no_flattery": true,
+      "autonomous_execution": true,
+      "user_driven_interaction": false
+    }
+}

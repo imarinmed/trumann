@@ -1,0 +1,169 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Quality Gates: Format → Lint → Build
+  quality:
+    name: Quality Checks
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "6.2"
+
+      - name: Swift Format Check
+        run: |
+          # Fail if formatting differs
+          swift-format --format --strict --recursive .
+          git diff --exit-code
+
+      - name: SwiftLint
+        run: swiftlint --strict
+
+  # Build with warnings-as-errors
+  build-macos:
+    name: Build (macOS)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "6.2"
+
+      - name: Build with Zero Warnings
+        run: |
+          # Treat all warnings as errors
+          swift build \
+            -Xswiftc -warnings-as-errors \
+            -Xswiftc -warn-concurrency \
+            -Xswiftc -enable-bare-slash-regex
+
+      - name: Cache SPM Artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            .build
+            ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+  # Test with coverage
+  test-macos-coverage:
+    name: Test (macOS + Coverage)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "6.2"
+
+      - name: Run Tests with Coverage
+        run: swift test --enable-code-coverage
+
+      - name: Export Coverage (LCOV)
+        run: |
+          # Export coverage to LCOV format for Codecov
+          xcrun llvm-cov export \
+            -format="lcov" \
+            .build/debug/codecov/default.profdata \
+            > coverage.lcov
+
+      - name: Check Coverage ≥ 80%
+        run: |
+          # Extract overall coverage percentage
+          COVERAGE=$(xcrun llvm-cov report \
+            .build/debug/codecov/default.profdata \
+            --summary-only 2>&1 | grep "TOTAL" | awk '{print $NF}' | sed 's/%//')
+
+          echo "Overall coverage: ${COVERAGE}%"
+
+          # Fail if below threshold
+          if (( $(echo "${COVERAGE} < 80" | bc -l) )); then
+            echo "::error::Coverage ${COVERAGE}% is below 80% threshold"
+            exit 1
+          fi
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.lcov
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
+  # Matrix: macOS + iOS Simulators
+  test-matrix:
+    name: Test Matrix
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        swift-version: ["5.9", "6.0", "6.2"]
+        platform: [macOS, iOS]
+        include:
+          # iOS simulators
+          - swift-version: "6.2"
+            platform: iOS
+            destination: "platform=iOS Simulator,name=iPhone 15,OS=latest"
+          - swift-version: "6.2"
+            platform: iOS
+            destination: "platform=iOS Simulator,name=iPhone 14,OS=latest"
+          - swift-version: "6.2"
+            platform: iOS
+            destination: "platform=iOS Simulator,name=iPhone 13,OS=latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Swift ${{ matrix.swift-version }}
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: ${{ matrix.swift-version }}
+
+      - name: Test
+        run: |
+          if [ "${{ matrix.platform }}" = "macOS" ]; then
+            swift test --parallel
+          else
+            xcodebuild test \
+              -scheme Trumann-Package \
+              -destination '${{ matrix.destination }}' \
+              -enableCodeCoverage YES
+          fi
+
+  # Documentation
+  docs:
+    name: Documentation
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "6.2"
+
+      - name: Generate Documentation
+        run: swift package generate-documentation --target Core --output-path docs
+
+      - name: Upload Docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: docs
